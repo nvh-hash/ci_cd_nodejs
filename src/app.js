@@ -14,7 +14,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/api/tasks', taskRoutes);
-console.log("PORT", process.env.PORT);
+console.log("PORTC", process.env.PORT);
 
 app.use(notFound);
 app.use(errorHandler);
