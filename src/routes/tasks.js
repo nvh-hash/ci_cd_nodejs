@@ -22,6 +22,7 @@ function validateTask(body, { partial = false } = {}) {
 
 // GET /api/tasks?completed=true
 router.get('/', (req, res) => {
+  console.log("PORT",process.env.PORT)
   const { completed } = req.query;
   const filter = completed === undefined ? {} : { completed: completed === 'true' };
   res.json(store.findAll(filter));
