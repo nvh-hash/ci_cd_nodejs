@@ -1,5 +1,6 @@
 const express = require('express');
 const taskRoutes = require('./routes/tasks');
+const statsRoutes = require('./routes/stats');
 const logger = require('./middleware/logger');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 
@@ -14,6 +15,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/api/tasks', taskRoutes);
+app.use('/api/stats', statsRoutes);
 console.log("PORTC", process.env.PORT);
 
 app.use(notFound);

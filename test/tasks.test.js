@@ -52,3 +52,13 @@ test('updates, filters and deletes a task', async () => {
   assert.equal(del.status, 204);
   assert.equal((await request(`/api/tasks/${task.id}`)).status, 404);
 });
+
+test('GET /api/stats summarizes tasks', async () => {
+  const a = await (await request('/api/tasks', { method: 'POST', body: JSON.stringify({ title: 'One' }) })).json();
+  await request('/api/tasks', { method: 'POST', body: JSON.stringify({ title: 'Two' }) });
+  await request(`/api/tasks/${a.id}`, { method: 'PATCH', body: JSON.stringify({ completed: true }) });
+
+  const res = await request('/api/stats');
+  assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { total: 2, completed: 1, pending: 1, completionRate: 50 });
+});
